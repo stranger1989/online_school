@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '172.19.0.3', '[::1]']
 ALLOWED_HOSTS = ['localhost', '0.0.0.0', '[::1]']
+ALLOWED_HOSTS = ['web-system.herokuapp.com']
 
 
 # Application definition
