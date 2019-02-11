@@ -15,6 +15,7 @@ tests/report/
 /static
 .DS_Store
 venv
+config/local_setting.py
 
 # User-specific stuff:
 .idea/**/workspace.xml
