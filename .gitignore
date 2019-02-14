@@ -16,6 +16,8 @@ tests/report/
 .DS_Store
 venv
 config/local_setting.py
+db.sqlite3
+config/staticfiles
 
 # User-specific stuff:
 .idea/**/workspace.xml
