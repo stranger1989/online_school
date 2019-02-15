@@ -18,7 +18,7 @@ services:
       - db
   migration:
     image: postgres:10
-    command: bash -c "python manage.py migrate --noinput && python manage.py collectstatic"
+    command: python manage.py migrate --noinput
     volumes:
       - .:/code
     depends_on:
