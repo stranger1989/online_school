@@ -5,7 +5,7 @@ services:
     image: postgres:10
   web:
     build: .
-    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    command: python manage.py runserver 0.0.0.0:8000
     environment:
       - DJANGO_SECRET_KEY
     volumes:
@@ -14,4 +14,20 @@ services:
     ports:
       - 8000:8000
     depends_on:
+      - createsuperuser
+      - db
+  migration:
+    image: postgres:10
+    command: bash -c "python manage.py migrate --noinput && python manage.py collectstatic"
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+  createsuperuser:
+    image: postgres:10
+    command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'pass')" | python manage.py shell
+    volumes:
+      - .:/code
+    depends_on:
+      - migration
       - db
