@@ -1,0 +1,27 @@
+{% extends "onlineschool/base.html" %}
+{% block body %}
+<h1>{{title}}</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>名前</th>
+    <th>性別</th>
+    <th>年齢</th>
+      <th> </th>
+  </tr>
+    {% for user in users %}
+  <tr>
+    <td>{{ user.id }}</td>
+    <td>{{ user.name }}</td>
+    <td>{{ user.sex }}</td>
+    <td>{{ user.age }}</td>
+      <td>
+        <a href="{% url 'onlineschool:user_edit' user_id=user.id %}">編集</a>
+        <a href="{% url 'onlineschool:user_delete' user_id=user.id %}">削除</a>
+      </td>
+  </tr>
+    {% endfor %}
+</table>
+
+<button class="add-button"><a href="{% url 'onlineschool:user_form' %}">新規追加</a></button>
+{% endblock %}
