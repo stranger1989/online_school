@@ -1,0 +1,31 @@
+{% extends "onlineschool/base.html" %}
+{% block body %}
+<h1>{{title}}</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>顧客名</th>
+    <th>ジャンル</th>
+    <th>日付</th>
+      <th>受講時間</th>
+      <th>支払い金額</th>
+      <th></th>
+  </tr>
+    {% for lesson in lessonrecords %}
+  <tr>
+    <td>{{ lesson.id }}</td>
+    <td>{{ lesson.user_name }}</td>
+    <td>{{ lesson.lesson_name }}</td>
+    <td>{{ lesson.lesson_date }}</td>
+      <td>{{ lesson.lesson_hour }}</td>
+      <td>10000</td>
+      <td>
+        <a href="{% url 'onlineschool:lesson_edit' lesson_id=lesson.id %}">編集</a>
+        <a href="{% url 'onlineschool:lesson_delete' lesson_id=lesson.id %}">削除</a>
+      </td>
+  </tr>
+    {% endfor %}
+</table>
+
+<button class="add-button"><a href="{% url 'onlineschool:lesson_form' %}">新規追加</a></button>
+{% endblock %}
