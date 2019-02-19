@@ -1,10 +1,10 @@
 body {
-    color:blue;
-    font-size:20pt;
+    color:black;
+    font-size:12pt;
 }
 
 h1 {
-    color:red;
+    color:#000;
     font-size:32pt;
 }
 
@@ -14,5 +14,44 @@ p {
 }
 
 a {
-    color:yellow;
+    color:gray;
+}
+
+li{
+    margin: 0 0 10px 0;
+}
+
+.title{
+    margin: 0 0 10px 0;
+}
+
+table, th, td {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  line-height: 1.5;
+}
+
+table th {
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  background: #3f3f3f;
+  color: #ffffff;
+}
+table td {
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+}
+
+tr:nth-child(even) {
+  background: #d9d9d9;
+}
+
+.add-button{
+    width: 150px;
+    height: 30px;
+    margin: 30px auto;
+    display: block;
 }
