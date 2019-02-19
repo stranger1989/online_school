@@ -19,7 +19,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 ALLOWED_HOSTS = ['web-system.herokuapp.com']
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -116,11 +115,11 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-STATIC_URL = '/staticfiles/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
+    os.path.join(STATIC_ROOT, 'static'),
 )
 
 try:
