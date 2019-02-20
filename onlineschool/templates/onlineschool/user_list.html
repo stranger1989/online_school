@@ -23,5 +23,6 @@
     {% endfor %}
 </table>
 
-<button class="add-button"><a href="{% url 'onlineschool:user_form' %}">新規追加</a></button>
+<a href="{% url 'onlineschool:index' %}"><button class="add-button">トップに戻る</button></a>
+<a href="{% url 'onlineschool:user_form' %}"><button class="add-button">新規追加</button></a>
 {% endblock %}

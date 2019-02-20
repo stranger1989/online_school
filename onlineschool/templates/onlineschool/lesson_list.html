@@ -1,4 +1,5 @@
 {% extends "onlineschool/base.html" %}
+{% load extras %}
 {% block body %}
 <h1>{{title}}</h1>
 <table>
@@ -18,7 +19,7 @@
     <td>{{ lesson.lesson_name }}</td>
     <td>{{ lesson.lesson_date }}</td>
       <td>{{ lesson.lesson_hour }}</td>
-      <td>10000</td>
+      <td>{{lesson.lesson_name.pay_per_charge|mlti:lesson.lesson_hour}}</td>
       <td>
         <a href="{% url 'onlineschool:lesson_edit' lesson_id=lesson.id %}">編集</a>
         <a href="{% url 'onlineschool:lesson_delete' lesson_id=lesson.id %}">削除</a>
@@ -27,5 +28,6 @@
     {% endfor %}
 </table>
 
-<button class="add-button"><a href="{% url 'onlineschool:lesson_form' %}">新規追加</a></button>
+<a href="{% url 'onlineschool:index' %}"><button class="add-button">トップに戻る</button></a>
+<a href="{% url 'onlineschool:lesson_form' %}"><button class="add-button">新規追加</button></a>
 {% endblock %}
