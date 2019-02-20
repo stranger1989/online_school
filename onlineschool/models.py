@@ -39,6 +39,3 @@ class LessonRecord(models.Model):
     lesson_name = models.ForeignKey(Lesson, verbose_name='ジャンル名', on_delete=models.CASCADE)
     lesson_date = models.DateField(default=timezone.now, verbose_name='受講日')
     lesson_hour = models.IntegerField(verbose_name='受講時間')
-
-    def __str__(self):
-        return self.user_name
