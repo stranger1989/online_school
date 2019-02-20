@@ -90,12 +90,12 @@ def lesson_form(request):
 def lesson_edit(request, lesson_id):
     lesson = get_object_or_404(LessonRecord, pk=lesson_id)
     if request.method == 'POST':
-        form = LessonRecord(request.POST, instance=lesson)
+        form = LessonRecordForm(request.POST, instance=lesson)
         if form.is_valid():
             lesson.save()
             return HttpResponseRedirect(reverse('onlineschool:lesson_list'))
     else:
-        form = LessonRecord({
+        form = LessonRecordForm({
             'user_name': lesson.user_name,
             'lesson_name': lesson.lesson_name,
             'lesson_date': lesson.lesson_date,
