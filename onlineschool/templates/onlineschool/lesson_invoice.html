@@ -1,0 +1,48 @@
+{% extends "onlineschool/base.html" %}
+{% load extras %}
+{% block body %}
+<h1>{{title}}</h1>
+<form action= "{% url 'onlineschool:lesson_invoice' %}" method = "post">
+    {% for field in form %}
+    <div class="field">
+        <div class="ui input">
+            {{ field.label_tag}}
+            {% csrf_token %}
+            {{field}}
+        </div>
+        {% if field.errors%}
+        <p class="red message">
+            {{ field.errors.0 }}
+        </p> {% endif%}
+    </div>
+    {% endfor%}
+    <input type="submit" value="検索">
+</form>
+<div class="table-responsive">
+  <table class="table table-hover table-condensed table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>顧客ID</th>
+      <th>顧客名</th>
+      <th>ジャンル</th>
+      <th>合計レッスン数</th>
+      <th>請求金額</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ lesson_search_month|month_lesson_genre:user }}</td>
+      <td>{{ lesson_search_month|month_lesson_count:user }}レッスン</td>
+      <td>{{ lesson_search_month|month_lesson_charge:user }}</td>
+    </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<a href="{% url 'onlineschool:index' %}"><button class="add-button">トップに戻る</button></a>
+
+{% endblock %}
