@@ -10,10 +10,10 @@
             {% csrf_token %}
             {{field}}
         </div>
-<!--        {% if field.errors%}-->
-<!--        <p class="red message">-->
-<!--            {{ field.errors.0 }}-->
-<!--        </p> {% endif%}-->
+        {% if field.errors%}
+        <p class="red message">
+            {{ field.errors.0 }}
+        </p> {% endif%}
     </div>
     {% endfor%}
     <input type="submit" value="編集">

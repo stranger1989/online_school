@@ -1,27 +1,27 @@
 {% extends "onlineschool/base.html" %}
 {% block body %}
-<h1>{{title}}</h1>
+<h1>{{ title }}</h1>
 
 <form action= "{% url 'onlineschool:user_edit' user_id=user_id %}" method = "post">
-    {% for field in form%}
+    {% for field in form %}
     <div class="field">
         <div class="ui input">
-            {{ field.label_tag}}
+            {{ field.label_tag }}
             {% csrf_token %}
             {{field}}
         </div>
-        {% if field.errors%}
+        {% if field.errors %}
         <p class="red message">
             {{ field.errors.0 }}
-        </p> {% endif%}
+        </p> {% endif %}
     </div>
-    {% endfor%}
+    {% endfor %}
     <input type="submit" value="編集">
 </form>
-{% if form.non_field_errors%}
+{% if form.non_field_errors %}
 <div class="ui red message">
     <ul class="list">
-        {% for non_field_error in form.non_field_errors%}
+        {% for non_field_error in form.non_field_errors %}
         <li>{{ non_field_error }}</li>
         {% endfor%}
     </ul>

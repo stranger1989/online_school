@@ -3,7 +3,7 @@
 <h1>{{title}}</h1>
 
 <form action= "{% url 'onlineschool:lesson_form' %}" method = "post">
-    {% for field in form%}
+    {% for field in form %}
     <div class="field">
         <div class="ui input">
             {{ field.label_tag}}
