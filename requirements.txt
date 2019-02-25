@@ -5,3 +5,4 @@ psycopg2-binary
 gunicorn
 django-heroku
 whitenoise==3.3.1
+python-dateutil
