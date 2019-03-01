@@ -5,7 +5,7 @@ from django.shortcuts import (
 )
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import User, LessonRecord, Discount
+from .models import User, Lesson, LessonRecord, Discount
 from .form import UserForm, LessonRecordForm, InvoiceSearchForm
 import datetime
 
@@ -157,6 +157,41 @@ def lesson_invoice(request):
         return render(request, 'onlineschool/lesson_invoice.html', params)
 
 
+def lesson_report(request):
+    summarize_genre_sex = []
+    for genre in Lesson.objects.all().values_list('name', flat=True).order_by('name').distinct().reverse():
+        for sex in User.objects.all().values_list('sex', flat=True).order_by('sex').distinct().reverse():
+            summarize_genre_sex.append([genre, sex])
+
+    summarize_genre_sex_age = []
+    age_list = ["10", "20", "30", "40", "50", "60", "70"]
+    for genre in Lesson.objects.all().values_list('name', flat=True).order_by('name').distinct().reverse():
+        for sex in User.objects.all().values_list('sex', flat=True).order_by('sex').distinct().reverse():
+            for age in age_list:
+                summarize_genre_sex_age.append([genre, sex, age])
+
+    if request.method == 'POST':
+        params = {
+            'title': request.POST['invoice_search'] + '月レッスンレポート',
+            'summarize_genre_sex': summarize_genre_sex,
+            'summarize_genre_sex_age': summarize_genre_sex_age,
+            'users': User.objects.all(),
+            'form': InvoiceSearchForm(),
+            'lesson_search_month': request.POST['invoice_search']
+        }
+        return render(request, 'onlineschool/lesson_report.html', params)
+    else:
+        params = {
+            'title': 'レッスンレポート',
+            'summarize_genre_sex': summarize_genre_sex,
+            'summarize_genre_sex_age': summarize_genre_sex_age,
+            'users': User.objects.all(),
+            'form': InvoiceSearchForm(),
+            'lesson_search_month': datetime.date.today().month
+        }
+        return render(request, 'onlineschool/lesson_report.html', params)
+
+
 def total_lesson_hour(lesson_pay, lesson):
     # 現在の合計受講時間をユーザー・レッスン・月別に集計
     total_lesson_hour = LessonRecord.objects.all().filter(
@@ -178,15 +213,21 @@ def total_lesson_hour(lesson_pay, lesson):
     discount_rate_list = list(discount_rate)
     discount_level_count = 0
 
+    # 月の受講が初めての時、基本受講料を追加
+    if previous_total_lesson_hour['lesson_hour__sum'] is None:
+        final_lesson_charge = lesson.lesson_name.basic_charge
+    else:
+        final_lesson_charge = 0
+
     # もし割引がない時、従量基本料金で計算
     if not discount_rate_list:
-        return total_lesson_hour['lesson_hour__sum'] * lesson_pay
+        final_lesson_charge += lesson.lesson_hour * lesson_pay
+        return final_lesson_charge
 
     # もし割引がある時、従量基本料金にいくら割引するか計算
     for discount_info in discount_rate:
         # 合計受講時間が閾値以上あるとき
         if total_lesson_hour['lesson_hour__sum'] >= discount_info.limited_hour:
-            final_lesson_charge = 0
             deff_from_limited = total_lesson_hour['lesson_hour__sum'] - discount_rate_list[0].limited_hour
 
             if len(discount_rate) - 1 != discount_level_count:
@@ -207,17 +248,24 @@ def total_lesson_hour(lesson_pay, lesson):
         else:
             # 合計受講時間が最小割引閾値を超えない時
             if len(discount_rate_list) == 1:
-                # 合計受講時間が無料時間より少ないとき
-                if total_lesson_hour['lesson_hour__sum'] <= lesson.lesson_name.free_time:
-                    return 0
-                else:
-                    if previous_total_lesson_hour['lesson_hour__sum'] is not None:
-                        if previous_total_lesson_hour['lesson_hour__sum'] < lesson.lesson_name.free_time and total_lesson_hour['lesson_hour__sum'] > lesson.lesson_name.free_time:
-                            return (lesson.lesson_hour - (lesson.lesson_name.free_time - previous_total_lesson_hour['lesson_hour__sum'])) * lesson_pay
-                        else:
-                            return lesson.lesson_hour * lesson_pay
+                # ジャンルに無料時間が設定されている時
+                if lesson.lesson_name.free_time > 0:
+                    # 受講が初めての時
+                    if previous_total_lesson_hour['lesson_hour__sum'] is None:
+                        # 受講時間は無料時間を超えているか
+                        if lesson.lesson_hour > lesson.lesson_name.free_time:
+                            final_lesson_charge += (lesson.lesson_hour - lesson.lesson_name.free_time) * lesson_pay
+                    # 受講が2回目以降
                     else:
-                        return (lesson.lesson_hour - lesson.lesson_name.free_time) * lesson_pay
+                        # 前回の受講が無料時間を超えておらず、今回無料時間を超えた時
+                        if previous_total_lesson_hour['lesson_hour__sum'] < lesson.lesson_name.free_time and total_lesson_hour['lesson_hour__sum'] > lesson.lesson_name.free_time:
+                            final_lesson_charge += (lesson.lesson_hour - (lesson.lesson_name.free_time - previous_total_lesson_hour['lesson_hour__sum'])) * lesson_pay
+                        else:
+                            final_lesson_charge += lesson.lesson_hour * lesson_pay
+                else:
+                    final_lesson_charge += lesson.lesson_hour * lesson_pay
+
+                return final_lesson_charge
             else:
                 # 閾値の最大値を削除
                 discount_rate_list.pop(0)

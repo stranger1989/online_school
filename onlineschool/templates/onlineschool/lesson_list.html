@@ -13,7 +13,6 @@
       <th>受講時間</th>
       <th>支払い金額</th>
       <th></th>
-      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -26,16 +25,16 @@
       <td>{{ lesson.lesson_hour }}</td>
       <td>{{ lesson.lesson_charge }}</td>
       <td>
-        <a href="{% url 'onlineschool:lesson_edit' lesson_id=lesson.id %}">編集</a>
-        <a href="{% url 'onlineschool:lesson_delete' lesson_id=lesson.id %}">削除</a>
+        <a href="{% url 'onlineschool:lesson_edit' lesson_id=lesson.id %}" class="btn btn-primary mb-1">編集</a>
+        <a href="{% url 'onlineschool:lesson_delete' lesson_id=lesson.id %}" class="btn btn-primary mb-1">削除</a>
       </td>
-      <td>{{lesson.lesson_name.pay_per_charge|total_lesson_hour:lesson }}</td>
     </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
-
-<a href="{% url 'onlineschool:index' %}"><button class="add-button">トップに戻る</button></a>
-<a href="{% url 'onlineschool:lesson_form' %}"><button class="add-button">新規追加</button></a>
+<div class="text-center">
+<a href="{% url 'onlineschool:index' %}" class="btn btn-primary mb-1">トップに戻る</a>
+<a href="{% url 'onlineschool:lesson_form' %}" class="btn btn-primary mb-1">新規追加</a>
+</div>
 {% endblock %}

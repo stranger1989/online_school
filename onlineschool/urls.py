@@ -14,4 +14,5 @@ urlpatterns = [
     path('lesson_form/<int:lesson_id>/', views.lesson_edit, name='lesson_edit'),
     path('lesson_delete/<int:lesson_id>/', views.lesson_delete, name='lesson_delete'),
     path('lesson_invoice', views.lesson_invoice, name='lesson_invoice'),
+    path('lesson_report', views.lesson_report, name='lesson_report'),
 ]

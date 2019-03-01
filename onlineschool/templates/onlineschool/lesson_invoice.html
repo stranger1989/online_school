@@ -16,7 +16,7 @@
         </p> {% endif%}
     </div>
     {% endfor%}
-    <input type="submit" value="検索">
+    <input type="submit" value="検索" class="btn btn-primary mb-1">
 </form>
 <div class="table-responsive">
   <table class="table table-hover table-condensed table-bordered table-striped">
@@ -42,7 +42,7 @@
     </tbody>
   </table>
 </div>
-
-<a href="{% url 'onlineschool:index' %}"><button class="add-button">トップに戻る</button></a>
-
+<div class="text-center">
+<a href="{% url 'onlineschool:index' %}" class="btn btn-primary mb-1">トップに戻る</a>
+</div>
 {% endblock %}
