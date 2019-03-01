@@ -1,0 +1,78 @@
+{% extends "onlineschool/base.html" %}
+{% load extras %}
+{% block body %}
+<h1>{{title}}</h1>
+<form action= "{% url 'onlineschool:lesson_report' %}" method = "post">
+    {% for field in form %}
+    <div class="field">
+        <div class="ui input">
+            {{ field.label_tag }}
+            {% csrf_token %}
+            {{field}}
+        </div>
+        {% if field.errors %}
+        <p class="red message">
+            {{ field.errors.0 }}
+        </p> {% endif %}
+    </div>
+    {% endfor%}
+    <input type="submit" value="検索" class="btn btn-primary mb-2">
+</form>
+
+<h2>ジャンルと性別別</h2>
+<div class="table-responsive">
+  <table class="table table-hover table-condensed table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>ジャンル</th>
+      <th>性別</th>
+      <th>レッスン数</th>
+      <th>受講者数</th>
+      <th>売り上げ</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for ele_genre_sex in summarize_genre_sex %}
+    <tr>
+      <td>{{ ele_genre_sex.0 }}</td>
+      <td>{{ ele_genre_sex.1 }}</td>
+      <td>{{ lesson_search_month|month_lesson_count_genre_sex:ele_genre_sex }}レッスン</td>
+      <td>{{ lesson_search_month|month_user_count_genre_sex:ele_genre_sex }}人</td>
+      <td>{{ lesson_search_month|month_lesson_charge_genre_sex:ele_genre_sex }}</td>
+    </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h2>ジャンルと年齢層別</h2>
+<div class="table-responsive">
+  <table class="table table-hover table-condensed table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>ジャンル</th>
+      <th>性別</th>
+      <th>年齢層</th>
+      <th>レッスン数</th>
+      <th>受講者数</th>
+      <th>売り上げ</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for ele_genre_sex_age in summarize_genre_sex_age %}
+    <tr>
+      <td>{{ ele_genre_sex_age.0 }}</td>
+      <td>{{ ele_genre_sex_age.1 }}</td>
+      <td>{{ ele_genre_sex_age.2 }}代</td>
+      <td>{{ lesson_search_month|month_lesson_count_genre_sex_age:ele_genre_sex_age }}レッスン</td>
+      <td>{{ lesson_search_month|month_user_count_genre_sex_age:ele_genre_sex_age }}人</td>
+      <td>{{ lesson_search_month|month_lesson_charge_genre_sex_age:ele_genre_sex_age }}</td>
+    </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="text-center">
+<a href="{% url 'onlineschool:index' %}" class="btn btn-primary mb-1">トップに戻る</a>
+</div>
+{% endblock %}

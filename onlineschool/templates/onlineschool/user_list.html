@@ -20,15 +20,16 @@
       <td>{{ user.sex }}</td>
       <td>{{ user.age }}</td>
       <td>
-        <a href="{% url 'onlineschool:user_edit' user_id=user.id %}">編集</a>
-        <a href="{% url 'onlineschool:user_delete' user_id=user.id %}">削除</a>
+        <a href="{% url 'onlineschool:user_edit' user_id=user.id %}" class="btn btn-primary mb-1">編集</a>
+        <a href="{% url 'onlineschool:user_delete' user_id=user.id %}" class="btn btn-primary mb-1">削除</a>
       </td>
     </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
-
-<a href="{% url 'onlineschool:index' %}"><button class="add-button">トップに戻る</button></a>
-<a href="{% url 'onlineschool:user_form' %}"><button class="add-button">新規追加</button></a>
+<div class="text-center">
+  <a href="{% url 'onlineschool:index' %}" class="btn btn-primary mb-1">トップに戻る</a>
+  <a href="{% url 'onlineschool:user_form' %}" class="btn btn-primary mb-1">新規追加</a>
+</div>
 {% endblock %}

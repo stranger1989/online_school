@@ -3,7 +3,7 @@
 <h1>{{title}}</h1>
 
 <form action= "{% url 'onlineschool:user_form' %}" method = "post">
-    {% for field in form%}
+    {% for field in form %}
     <div class="field">
         <div class="ui input">
             {{ field.label_tag}}
@@ -13,12 +13,12 @@
         {% if field.errors%}
         <p class="red message">
             {{ field.errors.0 }}
-        </p> {% endif%}
+        </p> {% endif %}
     </div>
-    {% endfor%}
-    <input type="submit" value="登録">
+    {% endfor %}
+    <input type="submit" value="登録" class="btn btn-primary mb-2">
 </form>
-{% if form.non_field_errors%}
+{% if form.non_field_errors %}
 <div class="ui red message">
     <ul class="list">
         {% for non_field_error in form.non_field_errors%}
