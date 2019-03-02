@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='lessonrecord',
             name='lesson_hour',
-            field=models.IntegerField(verbose_name='受講時間'),
+            field=models.IntegerField(default=0, verbose_name='受講時間'),
         ),
     ]
