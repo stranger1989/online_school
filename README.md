@@ -15,6 +15,13 @@
 
 ***
 
+# 本番ページ
+
+- [本番トップページURL](https://web-system.herokuapp.com/onlineschool/)
+- [本番アドミンページURL](https://web-system.herokuapp.com/admin/)
+
+***
+
 # DB設計
 
 ## Userテーブル
@@ -27,7 +34,6 @@
 ### Association
 - has_many :lessonrecord
 
-***
 
 ## Lessonテーブル
 |Column|Type|Options|
@@ -41,7 +47,6 @@
 - has_many :lessonrecord
 - has_many :discount
 
-***
 
 ## Lessonrecordテーブル
 |Column|Type|Options|
@@ -52,11 +57,11 @@
 |lesson_hour|integer|null: false|
 |lesson_charge|integer|null: false|
 
+
 ### Association
 - belongs_to :user
 - belongs_to :lesson
 
-***
 
 ## Discountテーブル
 |Column|Type|Options|
@@ -67,5 +72,3 @@
 
 ### Association
 - belongs_to :lesson
-
-***
