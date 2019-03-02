@@ -6,12 +6,6 @@ from onlineschool.models import LessonRecord
 register = template.Library()
 
 
-@register.filter(name='mlti')
-def mlti(value1, value2):
-    total = value1 * value2
-    return total
-
-
 @register.filter(name='month_lesson_genre')
 def month_lesson_genre(month, user):
     month_lesson_genre = LessonRecord.objects.all().filter(
