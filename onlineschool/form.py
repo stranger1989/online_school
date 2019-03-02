@@ -6,6 +6,7 @@ from onlineschool.models import LessonRecord
 import datetime
 from dateutil.relativedelta import relativedelta
 
+
 class UserForm(forms.ModelForm):
     sex = forms.ChoiceField(choices=User.SEX_CHOICES, label='性別')
 
@@ -47,9 +48,9 @@ class LessonRecordForm(forms.ModelForm):
 class InvoiceSearchForm(forms.Form):
 
     Month_CHOICES = (
-        (datetime.date.today().month, datetime.date.today().strftime('%m月')),
-        ((datetime.date.today()-relativedelta(months=1)).month, (datetime.date.today()-relativedelta(months=1)).strftime('%m月')),
-        ((datetime.date.today()-relativedelta(months=2)).month, (datetime.date.today()-relativedelta(months=2)).strftime('%m月')),
+        (datetime.date.today().month, datetime.date.today().strftime('%Y年%m月')),
+        ((datetime.date.today()-relativedelta(months=1)).month, (datetime.date.today()-relativedelta(months=1)).strftime('%Y年%m月')),
+        ((datetime.date.today()-relativedelta(months=2)).month, (datetime.date.today()-relativedelta(months=2)).strftime('%Y年%m月')),
     )
 
     invoice_search = forms.ChoiceField(
