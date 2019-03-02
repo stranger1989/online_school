@@ -2,10 +2,10 @@
 {% load extras %}
 {% block body %}
 <h1>{{title}}</h1>
-<form action= "{% url 'onlineschool:lesson_invoice' %}" method = "post">
+<form action= "{% url 'onlineschool:lesson_invoice' %}" method = "post" class="input-group mb-5 mt-5">
     {% for field in form %}
     <div class="field">
-        <div class="ui input">
+        <div class="ui input form-control">
             {{ field.label_tag}}
             {% csrf_token %}
             {{field}}
@@ -16,7 +16,9 @@
         </p> {% endif%}
     </div>
     {% endfor%}
-    <input type="submit" value="検索" class="btn btn-primary mb-1">
+    <span class="input-group-btn">
+        <input type="submit" value="検索" class="btn btn-secondary">
+    </span>
 </form>
 <div class="table-responsive">
   <table class="table table-hover table-condensed table-bordered table-striped">
@@ -43,6 +45,6 @@
   </table>
 </div>
 <div class="text-center">
-<a href="{% url 'onlineschool:index' %}" class="btn btn-primary mb-1">トップに戻る</a>
+<a href="{% url 'onlineschool:index' %}" class="btn btn-secondary mb-1">トップに戻る</a>
 </div>
 {% endblock %}

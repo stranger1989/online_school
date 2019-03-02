@@ -25,8 +25,8 @@
       <td>{{ lesson.lesson_hour }}</td>
       <td>{{ lesson.lesson_charge }}</td>
       <td>
-        <a href="{% url 'onlineschool:lesson_edit' lesson_id=lesson.id %}" class="btn btn-primary mb-1">編集</a>
-        <a href="{% url 'onlineschool:lesson_delete' lesson_id=lesson.id %}" class="btn btn-primary mb-1">削除</a>
+        <a href="{% url 'onlineschool:lesson_edit' lesson_id=lesson.id %}" class="btn-sm btn-secondary mb-1">編集</a>
+        <a href="{% url 'onlineschool:lesson_delete' lesson_id=lesson.id %}" class="btn-sm btn-secondary mb-1">削除</a>
       </td>
     </tr>
       {% endfor %}
@@ -34,7 +34,7 @@
   </table>
 </div>
 <div class="text-center">
-<a href="{% url 'onlineschool:index' %}" class="btn btn-primary mb-1">トップに戻る</a>
-<a href="{% url 'onlineschool:lesson_form' %}" class="btn btn-primary mb-1">新規追加</a>
+<a href="{% url 'onlineschool:index' %}" class="btn btn-secondary mb-1">トップに戻る</a>
+<a href="{% url 'onlineschool:lesson_form' %}" class="btn btn-secondary mb-1">新規追加</a>
 </div>
 {% endblock %}

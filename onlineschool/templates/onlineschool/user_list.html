@@ -20,8 +20,8 @@
       <td>{{ user.sex }}</td>
       <td>{{ user.age }}</td>
       <td>
-        <a href="{% url 'onlineschool:user_edit' user_id=user.id %}" class="btn btn-primary mb-1">編集</a>
-        <a href="{% url 'onlineschool:user_delete' user_id=user.id %}" class="btn btn-primary mb-1">削除</a>
+        <a href="{% url 'onlineschool:user_edit' user_id=user.id %}" class="btn-sm btn-secondary mb-1">編集</a>
+        <a href="{% url 'onlineschool:user_delete' user_id=user.id %}" class="btn-sm btn-secondary mb-1">削除</a>
       </td>
     </tr>
       {% endfor %}
@@ -29,7 +29,7 @@
   </table>
 </div>
 <div class="text-center">
-  <a href="{% url 'onlineschool:index' %}" class="btn btn-primary mb-1">トップに戻る</a>
-  <a href="{% url 'onlineschool:user_form' %}" class="btn btn-primary mb-1">新規追加</a>
+  <a href="{% url 'onlineschool:index' %}" class="btn btn-secondary mb-1">トップに戻る</a>
+  <a href="{% url 'onlineschool:user_form' %}" class="btn btn-secondary mb-1">新規追加</a>
 </div>
 {% endblock %}
